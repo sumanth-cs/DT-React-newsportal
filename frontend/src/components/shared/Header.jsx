@@ -83,12 +83,14 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+
       {/* Second Header: Navigation Bar */}
-      <div className="bg-sageGreen">
+      <div className="bg-darkYellow">
         <nav className="container mx-auto flex justify-between items-center py-2">
           {/* Logo */}
-          <Link to={"/"} className="text-3xl font-bold">
-            <img src={logo} alt="DharmTantra" className="w-20 h-20" />
+          <Link to={"/"} className="text-4xl font-bold">
+            <img src={logo} alt="DharmTantra" className="w-25 h-25" />
           </Link>
 
           {/* Mobile Toggle Button */}
@@ -110,7 +112,7 @@ const Header = () => {
           </button>
 
           {/* Navigation Links */}
-          <div className="hidden sm:flex space-x-6 ">
+          <div className="hidden sm:flex space-x-6 text-lg">
             <Link
               to="/"
               className=" text-black hover:-translate-y-1 hover:scale-105 transition-transform duration-300"
