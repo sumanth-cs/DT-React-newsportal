@@ -86,7 +86,7 @@ const Header = () => {
 
 
       {/* Second Header: Navigation Bar */}
-      <div className="bg-darkYellow">
+      <div className="bg-darkYellow shadow-md">
         <nav className="container mx-auto flex justify-between items-center py-2">
           {/* Logo */}
           <Link to={"/"} className="text-4xl font-bold">
