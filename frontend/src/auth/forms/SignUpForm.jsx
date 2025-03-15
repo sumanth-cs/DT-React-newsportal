@@ -73,10 +73,10 @@ const SignUpForm = () => {
       if (res.ok) {
         // toast({ title: "Sign up Successful!" });
         success("Sign up Successful!");
-        navigate("/sign-in");
+        navigate("/signin");
       }
-    } catch (error) {
-      setErrorMessage(error.message);
+    } catch (err) {
+      setErrorMessage(err.message);
       setLoading(false);
       // toast({ title: "Something went wrong!" });
       error("Something went wrong!");
@@ -108,7 +108,7 @@ const SignUpForm = () => {
         {/* right */}
         <div className="flex-1  p-6 rounded-lg shadow-lg bg-white">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="username"
@@ -182,7 +182,7 @@ const SignUpForm = () => {
           <div className="flex gap-2 text-sm mt-5">
             <span>Have an account?</span>
 
-            <Link to="/sign-in" className="text-blue-500">
+            <Link to="/signin" className="text-blue-500">
               Sign In
             </Link>
           </div>

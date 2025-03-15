@@ -10,21 +10,23 @@ import NewsArticles from "./pages/NewsArticles";
 import Header from "./components/shared/Header";
 import { Toaster } from "./components/ui/sonner";
 import Footer from "./components/shared/Footer";
+import Contact from "./pages/Contact";
 
 const App = () => {
   return (
     <BrowserRouter>
-    <Header/>
+      <Header />
       <Routes>
-        <Route path="/sign-in" element={<SignInForm />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
+        <Route path="/signin" element={<SignInForm />} />
+        <Route path="/signup" element={<SignUpForm />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/news" element={<NewsArticles />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
-      <Footer/>
-      <Toaster/>
+      <Footer />
+      <Toaster />
     </BrowserRouter>
   );
 };
