@@ -15,7 +15,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "../../../hooks/use-toast.js";
+import { useToast } from "@/hooks/use-toast";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "@/redux/user/userSlice";
 
 const formSchema = z.object({
   email: z.string().min({ message: "Invalid email address." }),
@@ -25,11 +31,12 @@ const formSchema = z.object({
 });
 
 const SignInForm = () => {
-  const { toast, success, error } = useToast();
+  const { toast } = useToast();
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
+
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
 
   // 1. Define your form.
   const form = useForm({
@@ -43,8 +50,7 @@ const SignInForm = () => {
   // 2. Define a submit handler.
   async function onSubmit(values) {
     try {
-      setLoading(true);
-      setErrorMessage(null);
+      dispatch(signInStart());
 
       const res = await fetch("/api/auth/signin", {
         method: "POST",
@@ -55,22 +61,19 @@ const SignInForm = () => {
       const data = await res.json();
 
       if (data.success === false) {
-        setLoading(false);
         toast({ title: "Sign in failed! Please try again." });
 
-        return setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
       }
 
-      setLoading(false);
-
       if (res.ok) {
-        success({ title: "Sign in Successful!" });
+        dispatch(signInSuccess(data));
+        toast({ title: "Sign in Successful!" });
         navigate("/");
       }
     } catch (err) {
-      setErrorMessage(err.message);
-      setLoading(false);
-      error({ title: "Something went wrong!" });
+      toast({ title: "Something went wrong!" });
+      dispatch(signInFailure(error.message));
     }
   }
 
