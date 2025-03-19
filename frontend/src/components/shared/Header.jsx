@@ -10,18 +10,19 @@ import {
 import { MdEmail } from "react-icons/md"; // Material Icons
 import logo from "../../assets/logo.png"; // Import logo image
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+// import { useSelector } from "react-redux";
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
+// import Button from "@/components/ui/button";
 
 const Header = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  // const { currentUser } = useSelector((state) => state.user);
 
   // Category list
   const categories = [
@@ -160,7 +161,7 @@ const Header = () => {
           </div>
 
           {/* User Profile Dropdown */}
-          {currentUser ? (
+          {/* {currentUser ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <div>
@@ -197,7 +198,7 @@ const Header = () => {
             <Link to={"/sign-in"}>
               <Button>Sign In</Button>
             </Link>
-          )}
+          )} */}
         </nav>
       </div>
     </header>

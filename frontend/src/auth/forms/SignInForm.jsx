@@ -71,7 +71,7 @@ const SignInForm = () => {
         toast({ title: "Sign in Successful!" });
         navigate("/");
       }
-    } catch (err) {
+    } catch (error) {
       toast({ title: "Something went wrong!" });
       dispatch(signInFailure(error.message));
     }
@@ -160,7 +160,7 @@ const SignInForm = () => {
           <div className="flex gap-2 text-sm mt-5">
             <span>Don't have an account?</span>
 
-            <Link to="/signup" className="text-blue-500">
+            <Link to="/sign-up" className="text-blue-500">
               Sign Up
             </Link>
           </div>

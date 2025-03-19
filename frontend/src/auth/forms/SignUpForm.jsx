@@ -71,14 +71,14 @@ const SignUpForm = () => {
 
       if (res.ok) {
         // toast({ title: "Sign up Successful!" });
-        success("Sign up Successful!");
-        navigate("/signin");
+        toast("Sign up Successful!");
+        navigate("/sign-in");
       }
     } catch (err) {
       setErrorMessage(err.message);
       setLoading(false);
       // toast({ title: "Something went wrong!" });
-      error("Something went wrong!");
+      toast("Something went wrong!");
     }
   }
 
@@ -181,7 +181,7 @@ const SignUpForm = () => {
           <div className="flex gap-2 text-sm mt-5">
             <span>Have an account?</span>
 
-            <Link to="/signin" className="text-blue-500">
+            <Link to="/sign-in" className="text-blue-500">
               Sign In
             </Link>
           </div>
