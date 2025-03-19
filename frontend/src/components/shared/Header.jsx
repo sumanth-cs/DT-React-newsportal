@@ -10,8 +10,19 @@ import {
 import { MdEmail } from "react-icons/md"; // Material Icons
 import logo from "../../assets/logo.png"; // Import logo image
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
   // Category list
   const categories = [
     { id: 1, name: "Sports", path: "/category/sports" },
@@ -84,7 +95,6 @@ const Header = () => {
         </div>
       </div>
 
-
       {/* Second Header: Navigation Bar */}
       <div className="bg-darkYellow shadow-md">
         <nav className="container mx-auto flex justify-between items-center py-2">
@@ -148,6 +158,46 @@ const Header = () => {
               <FaSearch className="text-black hover:text-black transition duration-300 w-5 h-5" />
             </Link>
           </div>
+
+          {/* User Profile Dropdown */}
+          {currentUser ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div>
+                  <img
+                    src={currentUser.profilePicture}
+                    alt="user photo"
+                    className="w-10 h-10 rounded-full cursor-pointer"
+                  />
+                </div>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-60">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+
+                <DropdownMenuSeparator className="bg-gray-400" />
+
+                <DropdownMenuItem className="block font-semibold text-sm">
+                  <div className="flex flex-col gap-1">
+                    <span>@{currentUser.username}</span>
+                    <span>@{currentUser.email}</span>
+                  </div>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem className="font-semibold mt-2">
+                  <Link to="/dashboard?tab=profile">Profile</Link>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem className="font-semibold mt-2">
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link to={"/sign-in"}>
+              <Button>Sign In</Button>
+            </Link>
+          )}
         </nav>
       </div>
     </header>
