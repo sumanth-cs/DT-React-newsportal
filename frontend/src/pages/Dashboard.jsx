@@ -29,7 +29,7 @@ const Dashboard = () => {
       <BottomNavBar />
 
       {/* profile */}
-      <div>{tab === "profile" && <DashboardProfile />}</div>
+      <div className="w-full">{tab === "profile" && <DashboardProfile />}</div>
     </div>
   );
 };
