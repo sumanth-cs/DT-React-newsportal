@@ -2,9 +2,28 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { signOutSuccess } from "@/redux/user/userSlice";
 
 const DashboardProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
+
+  const handleSignout = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signOutSuccess());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
@@ -51,7 +70,14 @@ const DashboardProfile = () => {
 
       <div className="text-red-500 flex justify-between mt-5 ">
         <span className="cursor-pointer">Delete Account</span>
-        <span className="cursor-pointer">Sign Out</span>
+        {/* <span className="cursor-pointer">Sign Out</span> */}
+        <Button
+          variant="ghost"
+          className="cursor-pointer"
+          onClick={handleSignout}
+        >
+          Sign Out
+        </Button>
       </div>
     </div>
   );
