@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 import authRoutes from "./routes/auth.route.js"
+import postRoutes from "./routes/post.route.js"
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.listen(5000, () => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes)
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500
