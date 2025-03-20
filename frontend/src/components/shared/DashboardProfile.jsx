@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { signOutSuccess } from "@/redux/user/userSlice";
 
 const DashboardProfile = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
 
   const handleSignout = async () => {
     try {
@@ -63,8 +63,8 @@ const DashboardProfile = () => {
           className="h-12 border border-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0"
         />
 
-        <Button type="submit" className="h-12 bg-green-600">
-          Update Profile
+        <Button type="submit" className="h-12 bg-green-600" disabled={loading}>
+          {loading ? "Loading..." : "Update Profile"}
         </Button>
       </form>
 
