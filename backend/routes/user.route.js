@@ -1,5 +1,5 @@
 import express from "express"
-import { signout } from "../controllers/user.contoller.js"
+import { signout } from "../controllers/user.controller.js"
 
 const router = express.Router()
 
