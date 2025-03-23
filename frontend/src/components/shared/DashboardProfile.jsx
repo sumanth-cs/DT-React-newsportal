@@ -1,11 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { signOutSuccess } from "@/redux/user/userSlice";
+import { useUser } from "@/context/userContext";
 
 const DashboardProfile = () => {
-  const { currentUser, loading } = useSelector((state) => state.user);
+  const { currentUser, loading, signOut } = useUser();
 
   const handleSignout = async () => {
     try {
@@ -18,7 +17,7 @@ const DashboardProfile = () => {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        dispatch(signOutSuccess());
+        signOut();
       }
     } catch (error) {
       console.log(error);

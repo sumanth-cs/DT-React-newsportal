@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,26 +15,23 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/context/userContext";
 
 const formSchema = z.object({
   username: z
     .string()
-    .min(2, { message: "Username must be atleast 2 characters" }),
-  email: z.string().min({ message: "Invalid email address." }),
+    .min(2, { message: "Username must be at least 2 characters" }),
+  email: z.string().min(1, { message: "Invalid email address." }),
   password: z
     .string()
-    .min(8, { message: "Password must be atleast 8 characters." }),
+    .min(8, { message: "Password must be at least 8 characters." }),
 });
 
 const SignUpForm = () => {
-  const { toast, success, error } = useToast();
-
+  const { toast } = useToast();
   const navigate = useNavigate();
+  const { signUp, loading, error: errorMessage } = useUser();
 
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,42 +41,15 @@ const SignUpForm = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  async function onSubmit(values) {
+  const onSubmit = async (values) => {
     try {
-      setLoading(true);
-      setErrorMessage(null);
-
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      const data = await res.json();
-
-      if (data.success === false) {
-        setLoading(false);
-        // toast({ title: "Sign up failed! Please try again." });
-        toast("Sign up failed! Please try again.");
-
-        return setErrorMessage(data.message);
-      }
-
-      setLoading(false);
-
-      if (res.ok) {
-        // toast({ title: "Sign up Successful!" });
-        toast("Sign up Successful!");
-        navigate("/sign-in");
-      }
-    } catch (err) {
-      setErrorMessage(err.message);
-      setLoading(false);
-      // toast({ title: "Something went wrong!" });
-      toast("Something went wrong!");
+      await signUp(values.username, values.email, values.password);
+      toast("Sign up Successful!");
+      navigate("/");
+    } catch (error) {
+      toast("Sign up failed! Please try again.");
     }
-  }
+  };
 
   return (
     <div className="min-h-screen mt-20">
@@ -105,7 +74,7 @@ const SignUpForm = () => {
         </div>
 
         {/* right */}
-        <div className="flex-1  p-6 rounded-lg shadow-lg bg-white">
+        <div className="flex-1 p-6 rounded-lg shadow-lg bg-white">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
@@ -114,11 +83,9 @@ const SignUpForm = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Username</FormLabel>
-
                     <FormControl>
                       <Input type="text" placeholder="Username" {...field} />
                     </FormControl>
-
                     <FormMessage />
                   </FormItem>
                 )}
@@ -130,15 +97,9 @@ const SignUpForm = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email</FormLabel>
-
                     <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="xyz@email.com"
-                        {...field}
-                      />
+                      <Input type="email" placeholder="Email" {...field} />
                     </FormControl>
-
                     <FormMessage />
                   </FormItem>
                 )}
@@ -150,7 +111,6 @@ const SignUpForm = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
-
                     <FormControl>
                       <Input
                         type="password"
@@ -158,7 +118,6 @@ const SignUpForm = () => {
                         {...field}
                       />
                     </FormControl>
-
                     <FormMessage />
                   </FormItem>
                 )}
@@ -180,11 +139,11 @@ const SignUpForm = () => {
 
           <div className="flex gap-2 text-sm mt-5">
             <span>Have an account?</span>
-
             <Link to="/sign-in" className="text-blue-500">
               Sign In
             </Link>
           </div>
+
           {errorMessage && <p className="mt-5 text-red-500">{errorMessage}</p>}
         </div>
       </div>

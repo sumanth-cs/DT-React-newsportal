@@ -63,10 +63,10 @@ const Header = () => {
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             {/* Email Section */}
-            <div className="flex items-center gap-2 text-cream">
+            <div className="flex items-center gap-2 text-cream" >
               <MdEmail className="w-5 h-5" />
               <p>
-                email: <strong>thedharmtantra@gmail.com</strong>
+                email: <b>thedharmtantra@gmail.com</b>
               </p>
             </div>
 
@@ -117,8 +117,8 @@ const Header = () => {
       </div>
 
       {/* Second Header: Navigation Bar */}
-      <div className="bg-darkYellow shadow-md">
-        <nav className="container mx-auto flex justify-between items-center py-2">
+      <div className="bg-darkYellow shadow-lg sticky top-0 z-50">
+        <nav className="container mx-auto flex justify-between items-center py-2 ">
           {/* Logo */}
           <Link to={"/"} className="text-4xl font-bold">
             <img src={logo} alt="DharmTantra" className="w-25 h-25" />

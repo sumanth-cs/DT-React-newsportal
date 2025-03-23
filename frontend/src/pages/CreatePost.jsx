@@ -32,7 +32,7 @@ const CreatePost = () => {
     try {
       if (!file) {
         setImageUploadError("Please select an image!");
-        toast({ title: "Please select an image!" });
+        toast("Please select an image!");
         return;
       }
 
@@ -45,7 +45,7 @@ const CreatePost = () => {
 
       setFormData({ ...formData, image: postImageUrl });
 
-      toast({ title: "Image Uploaded Successfully!" });
+      toast("Image Uploaded Successfully!");
 
       if (postImageUrl) {
         setImageUploading(false);
@@ -54,7 +54,7 @@ const CreatePost = () => {
       setImageUploadError("Image upload failed");
       console.log(error);
 
-      toast({ title: "Image upload failed!" });
+      toast("Image upload failed!");
       setImageUploading(false);
     }
   };
@@ -72,20 +72,20 @@ const CreatePost = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        toast({ title: "Something went wrong! Please try again." });
+        toast("Something went wrong! Please try again.");
         setCreatePostError(data.message);
 
         return;
       }
 
       if (res.ok) {
-        toast({ title: "Article Published Successfully!" });
+        toast("Article Published Successfully!");
         setCreatePostError(null);
 
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
-      toast({ title: "Something went wrong! Please try again." });
+      toast("Something went wrong! Please try again.");
       setCreatePostError("Something went wrong! Please try again.");
     }
   };
@@ -156,7 +156,7 @@ const CreatePost = () => {
           <img
             src={formData.image}
             alt="upload"
-            className="w-full h-72 object-cover"
+            className="w-full h-72 rounded-lg object-contain"
           />
         )}
 

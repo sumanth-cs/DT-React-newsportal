@@ -1,18 +1,21 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "./components/shared/Header";
+
 import SignInForm from "./auth/forms/SignInForm";
 import SignUpForm from "./auth/forms/SignUpForm";
+
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
+
 import Dashboard from "./pages/Dashboard";
-import NewsArticles from "./pages/NewsArticles";
-import Header from "./components/shared/Header";
 import { Toaster } from "./components/ui/sonner";
 import Footer from "./components/shared/Footer";
-import Contact from "./pages/Contact";
-// import PrivateRoute from "./components/shared/PrivateRoute";
+import PrivateRoute from "./components/shared/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import AdminPrivateRoute from "./components/shared/AdminPrivateRoute";
+import PostDetails from "./pages/PostDetails";
 
 const App = () => {
   return (
@@ -21,21 +24,24 @@ const App = () => {
       <Routes>
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
+
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-
-        {/* <Route element={<PrivateRoute />}> */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        {/* </Route> */}
-
-        {/* <Route element={<AdminPrivateRoute />}> */}
-          <Route path="/create-post" element={<CreatePost />} />
-        {/* </Route> */}
-
-        <Route path="/news" element={<NewsArticles />} />
         <Route path="/contact" element={<Contact />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+
+        <Route element={<AdminPrivateRoute />}>
+          <Route path="/create-post" element={<CreatePost />} />
+        </Route>
+
+        <Route path="/post/:postSlug" element={<PostDetails />} />
       </Routes>
+
       <Footer />
+
       <Toaster />
     </BrowserRouter>
   );
