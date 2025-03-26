@@ -2,14 +2,11 @@ import { signOutSuccess } from "@/redux/user/userSlice";
 import React from "react";
 import { FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { IoIosCreate, IoIosDocument } from "react-icons/io";
-// import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 import { useUser } from "@/context/userContext";
 
 const BottomNavBar = () => {
-  // const dispatch = useDispatch()
 
-  // const { currentUser } = useSelector((state) => state.user)
   const { currentUser, signOut } = useUser();
 
   const handleSignout = async () => {
@@ -23,7 +20,6 @@ const BottomNavBar = () => {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        // dispatch(signOutSuccess())
         signOut();
       }
     } catch (error) {
