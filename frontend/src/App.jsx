@@ -16,6 +16,7 @@ import PrivateRoute from "./components/shared/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import AdminPrivateRoute from "./components/shared/AdminPrivateRoute";
 import PostDetails from "./pages/PostDetails";
+import EditPost from "./pages/EditPost";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
 
         <Route element={<AdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:postId" element={<EditPost />} />
         </Route>
 
         <Route path="/post/:postSlug" element={<PostDetails />} />
