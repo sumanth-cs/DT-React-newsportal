@@ -8,6 +8,17 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import { Link } from "react-router-dom";
 import { useUser } from "@/context/userContext";
 
@@ -16,6 +27,8 @@ const DashboardPosts = () => {
 
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
+
+  const [postIdToDelete, setPostIdToDelete] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -63,6 +76,31 @@ const DashboardPosts = () => {
     }
   };
 
+  const handleDeletePost = async () => {
+    // console.log(postIdToDelete)
+
+    try {
+      const res = await fetch(
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdToDelete)
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-full p-3">
       {currentUser.isAdmin && userPosts.length > 0 ? (
@@ -82,8 +120,8 @@ const DashboardPosts = () => {
             </TableHeader>
 
             {userPosts.map((post) => (
-              <TableBody className="divide-y">
-                <TableRow key={post._id}>
+              <TableBody className="divide-y" key={post._id}>
+                <TableRow>
                   <TableCell>
                     {new Date(post.updatedAt).toLocaleDateString()}
                   </TableCell>
@@ -105,9 +143,42 @@ const DashboardPosts = () => {
                   <TableCell>{post.category}</TableCell>
 
                   <TableCell>
-                    <span className="font-medium text-red-500 hover:underline cursor-pointer">
-                      Delete
-                    </span>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <span
+                          onClick={() => {
+                            setPostIdToDelete(post._id);
+                          }}
+                          className="font-medium text-red-600 hover:underline cursor-pointer"
+                        >
+                          Delete
+                        </span>
+                      </AlertDialogTrigger>
+
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete your post and remove your data from our
+                            servers.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            className="bg-red-600"
+                            onClick={handleDeletePost}
+                          >
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </TableCell>
 
                   <TableCell>
