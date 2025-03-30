@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getTimeAgo } from "@/lib/utils";
-import { 
-  Share2, 
-  Facebook, 
-  Twitter, 
-  Linkedin, 
-  Mail, 
-  Link as LinkIcon,
-  X,
-  MessageCircle 
-} from "lucide-react";
+import { Share2, X } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
+import { FaLink } from "react-icons/fa";
 
 const PostCard = ({ post }) => {
   const [showShareOptions, setShowShareOptions] = useState(false);
+  const shareRef = useRef(null);
+  const authorName = post?.authorName || "Admin";
+  const authorPhoto = post?.authorPhoto;
+  const authorInitial = authorName?.charAt(0)?.toUpperCase() || "A";
 
   const shareOptions = [
     {
       name: "WhatsApp",
-      icon: <MessageCircle className="w-5 h-5" />,
+      icon: <FaWhatsapp className="w-5 h-5" />,
       action: () => {
         window.open(
           `https://wa.me/?text=${encodeURIComponent(
@@ -30,7 +31,7 @@ const PostCard = ({ post }) => {
     },
     {
       name: "Facebook",
-      icon: <Facebook className="w-5 h-5" />,
+      icon: <FaFacebook className="w-5 h-5" />,
       action: () => {
         window.open(
           `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
@@ -42,7 +43,7 @@ const PostCard = ({ post }) => {
     },
     {
       name: "Twitter",
-      icon: <Twitter className="w-5 h-5" />,
+      icon: <FaXTwitter className="w-5 h-5" />,
       action: () => {
         window.open(
           `https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -56,7 +57,7 @@ const PostCard = ({ post }) => {
     },
     {
       name: "LinkedIn",
-      icon: <Linkedin className="w-5 h-5" />,
+      icon: <FaLinkedin className="w-5 h-5" />,
       action: () => {
         window.open(
           `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
@@ -66,23 +67,24 @@ const PostCard = ({ post }) => {
         );
       },
     },
-    {
-      name: "Email",
-      icon: <Mail className="w-5 h-5" />,
-      action: () => {
-        window.open(
-          `mailto:?subject=${encodeURIComponent(
-            post.title
-          )}&body=Check out this article: ${encodeURIComponent(
-            `${window.location.origin}/post/${post.slug}`
-          )}`,
-          "_blank"
-        );
-      },
-    },
+    // {
+    //   name: "Email",
+    //   icon: <SiGmail className="w-5 h-5" />,
+    //   action: () => {
+    //     const emailUrl = `mailto:?subject=${encodeURIComponent(
+    //       `Check out: ${post.title}`
+    //     )}&body=${encodeURIComponent(
+    //       `I found this interesting article and thought you might like it:\n\n` +
+    //         `${post.title}\n\n` +
+    //         `Read it here: ${window.location.origin}/post/${post.slug}\n\n` +
+    //         `Enjoy!`
+    //     )}`;
+    //     window.location.href = emailUrl;
+    //   },
+    
     {
       name: "Copy Link",
-      icon: <LinkIcon className="w-5 h-5" />,
+      icon: <FaLink className="w-5 h-5" />,
       action: () => {
         navigator.clipboard.writeText(
           `${window.location.origin}/post/${post.slug}`
@@ -93,14 +95,31 @@ const PostCard = ({ post }) => {
     },
   ];
 
+  // Close share options when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (shareRef.current && !shareRef.current.contains(event.target)) {
+        setShowShareOptions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-gray-200 relative">
       {/* Share Options Popover */}
       {showShareOptions && (
-        <div className="absolute right-2 top-14 z-10 bg-white rounded-lg shadow-xl p-3 w-48">
+        <div
+          ref={shareRef}
+          className="absolute right-2 top-14 z-50 bg-white rounded-lg shadow-xl p-3 w-48"
+        >
           <div className="flex justify-between items-center mb-2">
             <h3 className="font-medium text-gray-800">Share via</h3>
-            <button 
+            <button
               onClick={() => setShowShareOptions(false)}
               className="text-gray-500 hover:text-gray-700"
             >
@@ -149,8 +168,10 @@ const PostCard = ({ post }) => {
 
         {/* Post Metadata */}
         <div className="flex items-center justify-between text-sm text-gray-500">
-          <span>{getTimeAgo(post.createdAt)}</span>
-          <button 
+          <span className="text-xs text-gray-500">
+            {getTimeAgo(post.createdAt)}
+          </span>
+          <button
             onClick={() => setShowShareOptions(!showShareOptions)}
             className="p-2 text-gray-500 hover:text-blue-600 transition-colors relative"
             aria-label="Share options"
@@ -159,10 +180,28 @@ const PostCard = ({ post }) => {
           </button>
         </div>
 
+        {/* Author Section */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {authorPhoto ? (
+              <img
+                src={authorPhoto}
+                alt={authorName}
+                className="w-6 h-6 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
+                <span className="text-xs font-medium">{authorInitial}</span>
+              </div>
+            )}
+            <span className="text-xs text-gray-600">{authorName}</span>
+          </div>
+        </div>
+
         {/* Read Article Button */}
         <Link
           to={`/post/${post.slug}`}
-          className="mt-4 inline-block w-full text-center px-4 py-2 bg-black text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-[1.02]"
+          className="mt-2 inline-block w-full text-center px-4 py-2 bg-black text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-[1.02]"
         >
           Read Article
         </Link>
