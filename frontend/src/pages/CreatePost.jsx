@@ -11,12 +11,14 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { getFilePreview, uploadFile } from "@/lib/appwrite/uploadImage";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
+  const quillRef = useRef(null);
+
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -161,6 +163,7 @@ const CreatePost = () => {
         )}
 
         <ReactQuill
+          ref={quillRef}
           theme="snow"
           placeholder="Write something here..."
           className="h-72  mb-12 "
