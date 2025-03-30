@@ -64,11 +64,21 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const username = currentUser?.username || "author";
+
+    const updatedFormData = {
+      ...formData,
+      authorName: username, 
+    };
+
+    console.log("Sending data:", updatedFormData);
+
     try {
       const res = await fetch("/api/post/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedFormData),
       });
 
       const data = await res.json();
@@ -137,10 +147,22 @@ const CreatePost = () => {
         </div>
 
         <div className="flex gap-4 items-center justify-between  p-3">
-          <Input
+          <input
             type="file"
             accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
+            className="
+                    block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:bg-transparent file:border file:border-gray-300
+                    file:rounded-lg file:text-gray-700
+                    hover:file:bg-gray-50
+                    cursor-pointer
+                  "
+            onClick={() => console.log("File input clicked!")}
+            onChange={(e) => {
+              console.log("Selected File:", e.target.files[0]);
+              setFile(e.target.files[0]);
+            }}
           />
 
           <Button
@@ -158,7 +180,7 @@ const CreatePost = () => {
           <img
             src={formData.image}
             alt="upload"
-            className="w-full h-72 rounded-lg object-contain"
+            className="w-full max-w-3xl rounded-lg object-contain max-h-[500px]"
           />
         )}
 

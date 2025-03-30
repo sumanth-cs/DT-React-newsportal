@@ -362,7 +362,7 @@ const PostDetails = () => {
           <img
             src={post.image}
             alt={post.title}
-            className="mt-10 rounded-lg shadow-lg w-full max-w-5xl object-cover max-h-[500px]"
+            className="mt-10 mb-10 rounded-lg shadow-lg w-full max-w-5xl object-contain max-h-[500px]"
           />
   
           <div 

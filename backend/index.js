@@ -2,6 +2,7 @@ import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
+import cors from "cors";
 
 import authRoutes from "./routes/auth.route.js"
 import userRoutes from "./routes/user.route.js"
@@ -20,9 +21,11 @@ mongoose
 
 const app = express()
 
+
 // for allowing json object in req body
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors());
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000!")

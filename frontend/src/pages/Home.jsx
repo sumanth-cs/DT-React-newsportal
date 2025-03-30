@@ -44,7 +44,7 @@ const Home = () => {
       <div className="relative h-[30px] flex items-center justify-center bg-cover bg-center">
         <div className="absolute inset-0 bg-black/80"></div>
         <div className="relative text-center text-white max-w-4xl p-4">
-          <p  className="text-l font-bold ">
+          <p className="text-l font-bold ">
             Welcome to <span className="text-yellow-400">DharmTantra</span>
           </p>
         </div>
@@ -180,7 +180,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
     </div>
   );
 };

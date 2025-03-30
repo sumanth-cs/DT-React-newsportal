@@ -229,12 +229,12 @@
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     text-rendering: optimizeLegibility;
   }
 }
 
-@import "tailwindcss";
 
 @theme {
   --color-cream: #F4F1DE;
@@ -265,7 +265,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+a {
   font-family: var(--font-heading);
 }
 
@@ -303,6 +304,7 @@ span {
 /* Custom typography */
 .prose {
   font-size: 1.2rem;
+
   h1,
   h2,
   h3 {
@@ -311,18 +313,18 @@ span {
   }
 
   p {
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
     color: #374151;
   }
 
   ul,
   ol {
     padding-left: 1.5rem;
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
   }
 
   li {
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
   }
 
   strong {
@@ -333,5 +335,57 @@ span {
     color: #3b82f6;
     text-decoration: underline;
   }
+
+  h1 {
+    font-size: 2rem;
+    /* 40px */
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    /* 32px */
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    /* 28px */
+    line-height: 1.4;
+  }
+
+  p {
+    /* margin-bottom: 2rem; */
+    color: #374151;
+    font-size: 1.2rem;
+    /* 20px */
+  }
+
+  ul,
+  ol {
+    padding-left: 2rem;
+    /* margin-bottom: 2rem; */
+  }
+
+  li {
+    /* margin-bottom: 0.75rem; */
+    font-size: 1.2rem;
+    /* 19.2px */
+  }
+
+  strong {
+    color: #1f2937;
+    font-weight: 600;
+  }
+
 }
 
+input[type="file"] {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+  position: relative;
+  z-index: 9999 !important;
+
+
+}

@@ -143,7 +143,7 @@ const Header = () => {
           </button>
 
           {/* Navigation Links */}
-          <div className="hidden sm:flex space-x-6 text-lg">
+          <div className="hidden sm:flex space-x-6 text-lg font-semibold">
             <Link
               to="/"
               className=" text-black hover:-translate-y-1 hover:scale-105 transition-transform duration-300"
