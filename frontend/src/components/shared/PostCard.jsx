@@ -6,7 +6,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
-import { SiGmail } from "react-icons/si";
+// import { SiGmail } from "react-icons/si";
 import { FaLink } from "react-icons/fa";
 
 const PostCard = ({ post }) => {
@@ -162,7 +162,7 @@ const PostCard = ({ post }) => {
       {/* Content Section */}
       <div className="p-5 flex flex-col gap-3">
         {/* Post Title */}
-        <h2 className="text-l font-bold text-gray-800 line-clamp-2 hover:text-blue-600 transition-colors duration-300">
+        <h2 className="text-xl font-bold text-gray-800 line-clamp-2 hover:text-blue-600 transition-colors duration-300">
           <Link to={`/post/${post.slug}`}>{post.title}</Link>
         </h2>
 

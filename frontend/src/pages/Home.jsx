@@ -56,7 +56,7 @@ const Home = () => {
           <h2 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
             <TrendingUp className="w-8 h-8" /> Trending News
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {trendingPosts.map((post) => (
               <PostCard key={post._id} post={post} />
             ))}
