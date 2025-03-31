@@ -58,10 +58,21 @@ const DashboardSidebar = () => {
             </Link>
           </li>
 
-          {currentUser && currentUser.isAdmin && (
+          {/* {currentUser && currentUser.isAdmin && (
             <li>
               <Link
                 to={"/create-post"}
+                className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
+              >
+                <IoIosCreate className="text-lg" />
+                <span>Create Post</span>
+              </Link>
+            </li>
+          )} */}
+          {currentUser && currentUser.isAdmin && (
+            <li>
+              <Link
+                to={"/dashboard?tab=create-post"}
                 className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
               >
                 <IoIosCreate className="text-lg" />
@@ -78,6 +89,17 @@ const DashboardSidebar = () => {
               >
                 <IoIosDocument className="text-lg" />
                 <span>Your articles</span>
+              </Link>
+            </li>
+          )}
+          {currentUser && currentUser.isAdmin && (
+            <li>
+              <Link
+                to={"/dashboard?tab=manage-categories"}
+                className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
+              >
+                <IoIosDocument className="text-lg" />
+                <span>Manage Categories</span>
               </Link>
             </li>
           )}

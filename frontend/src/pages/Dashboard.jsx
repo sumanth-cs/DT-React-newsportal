@@ -4,6 +4,9 @@ import DashboardProfile from "@/components/shared/DashboardProfile";
 import DashboardSidebar from "@/components/shared/DashboardSidebar";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import CreatePost from "./CreatePost";
+import DashboardPosts from "@/components/shared/DashboardPosts";
+import CategoryManager from "@/components/shared/CategoryManager";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -31,8 +34,16 @@ const Dashboard = () => {
         {/* profile */}
         {tab === "profile" && <DashboardProfile />}
 
+        {/* create post */}
+        {tab === "create-post" && <CreatePost />}
+
         {/* news articles */}
-        {/* {tab === "posts" && <DashboardPosts />} */}
+        {tab === "posts" && <DashboardPosts />}
+
+        {/* manage cateogories */}
+        {tab==="manage-categories" && <CategoryManager/>}
+
+
       </div>
     </div>
   );

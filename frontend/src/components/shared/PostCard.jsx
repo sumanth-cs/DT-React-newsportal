@@ -194,14 +194,14 @@ const PostCard = ({ post }) => {
                 <span className="text-xs font-medium">{authorInitial}</span>
               </div>
             )}
-            <span className="text-xs text-gray-600">{authorName}</span>
+            {/* <span className="text-xs text-gray-600">{authorName}</span> */}
           </div>
         </div>
 
         {/* Read Article Button */}
         <Link
           to={`/post/${post.slug}`}
-          className="mt-2 inline-block w-full text-center px-4 py-2 bg-black text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-[1.02]"
+          className="mt-2 inline-block w-full text-center px-4 py-2 bg-black text-white font-semibold rounded-lg hover:bg-darkYellow hover:text-black transition-colors duration-300 transform hover:scale-[1.02]"
         >
           Read Article
         </Link>

@@ -9,7 +9,8 @@ import {
 } from "react-icons/fa"; // Import icons from React Icons
 import { MdEmail } from "react-icons/md"; // Material Icons
 import logo from "../../assets/logo.png"; // Import logo image
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux"
 // import {
 //   DropdownMenu,
@@ -45,28 +46,49 @@ const Header = () => {
   // }
 
   // Category list
-  const categories = [
-    { id: 1, name: "Sports", path: "/category/sports" },
-    { id: 2, name: "Entertainment", path: "/category/entertainment" },
-    { id: 3, name: "Politics", path: "/category/politics" },
-    { id: 4, name: "Business", path: "/category/business" },
-    { id: 5, name: "COVID-19", path: "/category/covid-19" },
-    { id: 6, name: "Consumer", path: "/category/consumer" },
-    { id: 7, name: "Tech News", path: "/category/tech-news" },
-    { id: 8, name: "General", path: "/category/general" },
-  ];
+  // const categories = [
+  //   { id: 1, name: "Sports", path: "/category/sports" },
+  //   { id: 2, name: "Entertainment", path: "/category/entertainment" },
+  //   { id: 3, name: "Politics", path: "/category/politics" },
+  //   { id: 4, name: "Business", path: "/category/business" },
+  //   { id: 5, name: "COVID-19", path: "/category/covid-19" },
+  //   { id: 6, name: "Consumer", path: "/category/consumer" },
+  //   { id: 7, name: "Tech News", path: "/category/tech-news" },
+  //   { id: 8, name: "General", path: "/category/general" },
+  // ];
 
+  const [categories, setCategories] = useState([]);
+  const location = useLocation();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Failed to load categories");
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const isActive = (path) => {
+    return location.pathname === path
+      ? "text-blue-600 font-medium"
+      : "text-gray-700 hover:text-blue-500";
+  };
   return (
     <header>
       {/* First Header: Email and Social Icons */}
-      <div className="bg-darkBrown py-2 hidden sm:block">
+      <div className="bg-black/90 py-2 hidden sm:block">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             {/* Email Section */}
-            <div className="flex items-center gap-2 text-cream" >
+            <div className="flex items-center gap-2 text-cream">
               <MdEmail className="w-5 h-5" />
               <p>
-                email: <b>thedharmtantra@gmail.com</b>
+                {/* email: <b>thedharmtantra@gmail.com</b> */}
               </p>
             </div>
 
@@ -143,7 +165,7 @@ const Header = () => {
           </button>
 
           {/* Navigation Links */}
-          <div className="hidden sm:flex space-x-6 text-lg font-semibold">
+          {/* <div className="hidden sm:flex space-x-6 text-lg font-semibold">
             <Link
               to="/"
               className=" text-black hover:-translate-y-1 hover:scale-105 transition-transform duration-300"
@@ -174,11 +196,48 @@ const Header = () => {
           </div>
 
           {/* Search Icon */}
-          <div className="hidden sm:block">
+          {/* <div className="hidden sm:block">
             <Link to="/search">
               <FaSearch className="text-black hover:text-black transition duration-300 w-5 h-5" />
             </Link>
-          </div>
+          </div> */}
+
+          <header className="bg-darkYellow ">
+            <div className="container mx-auto px-4 py-3 hidden sm:flex space-x-6 text-lg font-semibold">
+              <nav className="flex items-center space-x-6">
+                {/* Static Links */}
+                <Link to="/" className={`${isActive("/")} transition-transform hover:-translate-y-1 duration-300`}>
+                  Home
+                </Link>
+                <Link
+                  to="/about"
+                  className={`${isActive("/about")} transition-transform hover:-translate-y-1 duration-300`}
+                >
+                  About
+                </Link>
+
+                {/* Dynamic Categories */}
+                {categories.map((category) => (
+                  <Link
+                    key={category._id}
+                    to={`/category/${category.slug}`}
+                    className={`${isActive(
+                      `/category/${category.slug}`
+                    )} transition-transform hover:-translate-y-1 duration-300`}
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+
+                <Link
+                  to="/contact"
+                  className={`${isActive("/contact")} transition-transform hover:-translate-y-1 duration-300`}
+                >
+                  Contact Us
+                </Link>
+              </nav>
+            </div>
+          </header>
 
           {/* User Profile Dropdown */}
           {/* {currentUser ? (
