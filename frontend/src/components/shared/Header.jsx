@@ -60,6 +60,13 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const location = useLocation();
 
+  const [isHovered, setIsHovered] = useState(false);
+  const email = "thedharmtantra@gmail.com";
+
+  const handleEmailClick = () => {
+    window.open(`mailto:${email}`, "_blank");
+  };
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -85,10 +92,26 @@ const Header = () => {
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             {/* Email Section */}
-            <div className="flex items-center gap-2 text-cream">
+            {/* <div className="flex items-center gap-2 text-cream">
               <MdEmail className="w-5 h-5" />
-              <p>
-                {/* email: <b>thedharmtantra@gmail.com</b> */}
+              <p> */}
+            {/* email: <b>thedharmtantra@gmail.com</b> */}
+            {/* </p>
+            </div> */}
+            <div
+              className="flex items-center gap-2 text-cream cursor-pointer"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              onClick={handleEmailClick}
+            >
+              <MdEmail className="w-5 h-5" />
+
+              <p
+                className={`transition-opacity duration-300 ${
+                  isHovered ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {email}
               </p>
             </div>
 
@@ -206,12 +229,19 @@ const Header = () => {
             <div className="container mx-auto px-4 py-3 hidden sm:flex space-x-6 text-lg font-semibold">
               <nav className="flex items-center space-x-6">
                 {/* Static Links */}
-                <Link to="/" className={`${isActive("/")} transition-transform hover:-translate-y-1 duration-300`}>
+                <Link
+                  to="/"
+                  className={`${isActive(
+                    "/"
+                  )} transition-transform hover:-translate-y-1 duration-300`}
+                >
                   Home
                 </Link>
                 <Link
                   to="/about"
-                  className={`${isActive("/about")} transition-transform hover:-translate-y-1 duration-300`}
+                  className={`${isActive(
+                    "/about"
+                  )} transition-transform hover:-translate-y-1 duration-300`}
                 >
                   About
                 </Link>
@@ -231,7 +261,9 @@ const Header = () => {
 
                 <Link
                   to="/contact"
-                  className={`${isActive("/contact")} transition-transform hover:-translate-y-1 duration-300`}
+                  className={`${isActive(
+                    "/contact"
+                  )} transition-transform hover:-translate-y-1 duration-300`}
                 >
                   Contact Us
                 </Link>

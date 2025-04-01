@@ -69,3 +69,16 @@ export const deleteCategory = async (req, res) => {
     });
   }
 }
+
+// controllers/category.controller.js
+export const getCategoryBySlug = async (req, res) => {
+  try {
+    const category = await Category.findOne({ slug: req.params.slug });
+    if (!category) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+    res.json(category);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

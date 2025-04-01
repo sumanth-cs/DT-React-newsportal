@@ -34,7 +34,7 @@ app.listen(5000, () => {
 
 app.use("/api/auth", authRoutes)
 app.use("/api/user", userRoutes)
-app.use("/api/post", postRoutes)
+app.use("/api/posts", postRoutes)
 app.use('/api/categories', categoryRoutes);
 
 app.use((err, req, res, next) => {

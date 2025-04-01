@@ -32,56 +32,109 @@ export const create = async (req, res, next) => {
   }
 }
 
+// export const getPosts = async (req, res, next) => {
+//   try {
+//     const startIndex = parseInt(req.query.startIndex) || 0
+//     const limit = parseInt(req.query.limit) || 9
+
+//     const sortDirection = req.query.sort === "asc" ? 1 : -1
+
+//     const posts = await Post.find({
+//       ...(req.query.userId && { userId: req.query.userId }),
+
+//       ...(req.query.category && { category: req.query.category }),
+
+//       ...(req.query.slug && { slug: req.query.slug }),
+
+//       ...(req.query.postId && { _id: req.query.postId }),
+
+//       ...(req.query.searchTerm && {
+//         $or: [
+//           { title: { $regex: req.query.searchTerm, $options: "i" } },
+//           { content: { $regex: req.query.searchTerm, $options: "i" } },
+//         ],
+//       }),
+//     })
+//       .sort({ updatedAt: sortDirection })
+//       .skip(startIndex)
+//       .limit(limit)
+
+//     const totalPosts = await Post.countDocuments()
+
+//     const now = new Date()
+
+//     const oneMonthAgo = new Date(
+//       now.getFullYear(),
+//       now.getMonth() - 1,
+//       now.getDate()
+//     )
+
+//     const lastMonthPosts = await Post.countDocuments({
+//       createdAt: { $gte: oneMonthAgo },
+//     })
+
+//     res.status(200).json({
+//       posts,
+//       totalPosts,
+//       lastMonthPosts,
+//     })
+//   } catch (error) {
+//     next(error)
+//   }
+// }
 export const getPosts = async (req, res, next) => {
   try {
-    const startIndex = parseInt(req.query.startIndex) || 0
-    const limit = parseInt(req.query.limit) || 9
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const limit = parseInt(req.query.limit) || 9;
+    const sortDirection = req.query.sort === "asc" ? 1 : -1;
 
-    const sortDirection = req.query.sort === "asc" ? 1 : -1
-
-    const posts = await Post.find({
+    // Base query
+    const query = {
       ...(req.query.userId && { userId: req.query.userId }),
-
-      ...(req.query.category && { category: req.query.category }),
-
+      ...(req.query.category && { category: { $regex: new RegExp(`^${req.query.category}$`, "i") } }),
       ...(req.query.slug && { slug: req.query.slug }),
-
       ...(req.query.postId && { _id: req.query.postId }),
-
       ...(req.query.searchTerm && {
         $or: [
           { title: { $regex: req.query.searchTerm, $options: "i" } },
           { content: { $regex: req.query.searchTerm, $options: "i" } },
         ],
       }),
-    })
+    };
+
+    // Only calculate totals if not a category-specific request
+    const shouldCalculateTotals = !req.query.category && !req.query.userId && !req.query.postId;
+
+    const posts = await Post.find(query)
       .sort({ updatedAt: sortDirection })
       .skip(startIndex)
-      .limit(limit)
+      .limit(limit);
 
-    const totalPosts = await Post.countDocuments()
+    if (shouldCalculateTotals) {
+      const totalPosts = await Post.countDocuments();
+      const now = new Date();
+      const oneMonthAgo = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        now.getDate()
+      );
+      const lastMonthPosts = await Post.countDocuments({
+        createdAt: { $gte: oneMonthAgo },
+      });
 
-    const now = new Date()
+      return res.status(200).json({
+        posts,
+        totalPosts,
+        lastMonthPosts,
+      });
+    }
 
-    const oneMonthAgo = new Date(
-      now.getFullYear(),
-      now.getMonth() - 1,
-      now.getDate()
-    )
-
-    const lastMonthPosts = await Post.countDocuments({
-      createdAt: { $gte: oneMonthAgo },
-    })
-
-    res.status(200).json({
-      posts,
-      totalPosts,
-      lastMonthPosts,
-    })
+    // For category-specific requests
+    res.status(200).json(posts);
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
 
 export const deletepost = async (req, res, next) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {

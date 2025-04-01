@@ -16,6 +16,7 @@ import PrivateRoute from "./components/shared/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import AdminPrivateRoute from "./components/shared/AdminPrivateRoute";
 import PostDetails from "./pages/PostDetails";
+import CategoryPage from "./pages/CategoryPage";
 // import EditPost from "./pages/EditPost";
 
 const App = () => {
@@ -40,6 +41,8 @@ const App = () => {
         </Route>
 
         <Route path="/post/:postSlug" element={<PostDetails />} />
+
+        <Route path="/category/:slug" element={<CategoryPage />} />
       </Routes>
 
       <Footer />

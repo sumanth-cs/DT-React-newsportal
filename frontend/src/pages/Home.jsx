@@ -13,20 +13,20 @@ const Home = () => {
     const fetchPosts = async () => {
       try {
         // Fetch recent posts
-        const res = await fetch("/api/post/getPosts?limit=6");
+        const res = await fetch("/api/posts/?limit=6");
         const data = await res.json();
         if (res.ok) setPosts(data.posts);
 
         // Fetch trending posts
         const trendingRes = await fetch(
-          "/api/post/getPosts?sort=views&limit=4"
+          "/api/posts/?sort=views&limit=4"
         );
         const trendingData = await trendingRes.json();
         if (trendingRes.ok) setTrendingPosts(trendingData.posts);
 
         // Fetch featured posts
         const featuredRes = await fetch(
-          "/api/post/getPosts?featured=true&limit=3"
+          "/api/posts/?featured=true&limit=3"
         );
         const featuredData = await featuredRes.json();
         if (featuredRes.ok) setFeaturedPosts(featuredData.posts);
