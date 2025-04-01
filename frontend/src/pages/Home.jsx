@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, TrendingUp, Video, Mail } from "lucide-react"; // Icons for sections
 import PostCard from "@/components/shared/PostCard";
+import NewsBanner from "@/components/shared/NewsBanner";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -18,16 +19,12 @@ const Home = () => {
         if (res.ok) setPosts(data.posts);
 
         // Fetch trending posts
-        const trendingRes = await fetch(
-          "/api/posts/?sort=views&limit=4"
-        );
+        const trendingRes = await fetch("/api/posts/?sort=views&limit=4");
         const trendingData = await trendingRes.json();
         if (trendingRes.ok) setTrendingPosts(trendingData.posts);
 
         // Fetch featured posts
-        const featuredRes = await fetch(
-          "/api/posts/?featured=true&limit=3"
-        );
+        const featuredRes = await fetch("/api/posts/?featured=true&limit=6");
         const featuredData = await featuredRes.json();
         if (featuredRes.ok) setFeaturedPosts(featuredData.posts);
       } catch (error) {
@@ -50,6 +47,11 @@ const Home = () => {
         </div>
       </div>
 
+      {/* News Banner Section */}
+      <div className="flex items-center justify-center pt-10 bg-cream">
+        <NewsBanner newsItems={featuredPosts} />
+      </div>
+
       {/* Trending News Section */}
       <section className="py-16 bg-cream">
         <div className="max-w-7xl mx-auto px-4">
@@ -65,7 +67,7 @@ const Home = () => {
       </section>
 
       {/* Featured Stories Section */}
-      <section className="py-16 bg-sageGreen">
+      <section className="py-16 bg-cream">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-8">
             Featured Stories
@@ -123,7 +125,7 @@ const Home = () => {
       </section>
 
       {/* Multimedia Section */}
-      <section className="py-16 bg-sageGreen">
+      <section className="py-16 bg-cream">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
             <Video className="w-8 h-8" /> Multimedia
