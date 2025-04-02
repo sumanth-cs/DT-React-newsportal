@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { getFilePreview, uploadFile } from "@/lib/appwrite/uploadImage";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +29,11 @@ const CreatePost = () => {
   const [formData, setFormData] = useState({});
 
   const [createPostError, setCreatePostError] = useState(null);
+
+  // Add state for categories
+  const [categories, setCategories] = useState([]);
+  const [loadingCategories, setLoadingCategories] = useState(false);
+  const [categoriesError, setCategoriesError] = useState(null);
 
   const handleUploadImage = async () => {
     try {
@@ -69,13 +74,13 @@ const CreatePost = () => {
 
     const updatedFormData = {
       ...formData,
-      authorName: username, 
+      authorName: username,
     };
 
     console.log("Sending data:", updatedFormData);
 
     try {
-      const res = await fetch("/api/post/create", {
+      const res = await fetch("/api/posts/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedFormData),
@@ -102,8 +107,32 @@ const CreatePost = () => {
     }
   };
 
+  // Fetch categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoadingCategories(true);
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to fetch categories");
+        }
+
+        setCategories(data);
+        setLoadingCategories(false);
+      } catch (error) {
+        setCategoriesError(error.message);
+        setLoadingCategories(false);
+        toast("Failed to load categories");
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
-    <div className="p-6 max-w-3xl mx-auto  bg-white rounded-lg shadow-md my-10">
+    <div className="p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-md my-10">
       <h1 className="text-center text-3xl my-3 font-semibold text-slate-700">
         Create a post
       </h1>
@@ -115,7 +144,7 @@ const CreatePost = () => {
             placeholder="Title"
             required
             id="title"
-            className="w-full sm:w-3/4 h-12 border border-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="w-full sm:w-3/4 h-10 border border-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0"
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
@@ -126,21 +155,34 @@ const CreatePost = () => {
               setFormData({ ...formData, category: value })
             }
           >
-            <SelectTrigger className="w-full sm:w-1/4 h-12 border border-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0">
-              <SelectValue placeholder="Select a Category" />
+            <SelectTrigger className="w-full sm:w-1/4 h-20 border border-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0">
+              <SelectValue
+                placeholder={
+                  loadingCategories
+                    ? "Loading categories..."
+                    : "Select a Category"
+                }
+              />
             </SelectTrigger>
 
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Category</SelectLabel>
-                <SelectItem value="Sports">Sports</SelectItem>
-                <SelectItem value="Entertainment">Entertainment</SelectItem>
-                <SelectItem value="Politics">Politics</SelectItem>
-                <SelectItem value="Business">Business</SelectItem>
-                <SelectItem value="COVID-19">COVID-19</SelectItem>
-                <SelectItem value="Consumer">Consumer</SelectItem>
-                <SelectItem value="Tech News">Tech News</SelectItem>
-                <SelectItem value="General">General</SelectItem>
+                {loadingCategories ? (
+                  <SelectItem value="loading" disabled>
+                    Loading categories...
+                  </SelectItem>
+                ) : categoriesError ? (
+                  <SelectItem value="error" disabled>
+                    Failed to load categories
+                  </SelectItem>
+                ) : (
+                  categories.map((category) => (
+                    <SelectItem key={category._id} value={category.name}>
+                      {category.name}
+                    </SelectItem>
+                  ))
+                )}
               </SelectGroup>
             </SelectContent>
           </Select>

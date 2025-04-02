@@ -120,16 +120,6 @@ const CategoryManager = () => {
             >
               <span className="font-medium">{cat.name}</span>
               <AlertDialog>
-                {/* <AlertDialogTrigger asChild>
-                  <button
-                    onClick={() => setCategoryToDelete(cat._id)}
-                    disabled={isDeleting}
-                    className="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-100"
-                    aria-label={`Delete ${cat.name}`}
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </AlertDialogTrigger> */}
                 <AlertDialogTrigger asChild>
                   <Button
                     variant="ghost"

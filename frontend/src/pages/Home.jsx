@@ -48,7 +48,7 @@ const Home = () => {
       </div>
 
       {/* News Banner Section */}
-      <div className="flex items-center justify-center pt-10 bg-cream">
+      <div className="flex items-center justify-center md:pt-10 bg-cream">
         <NewsBanner newsItems={featuredPosts} />
       </div>
 
