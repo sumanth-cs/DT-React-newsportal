@@ -386,6 +386,33 @@ input[type="file"] {
   pointer-events: all !important;
   position: relative;
   z-index: 9999 !important;
+}
 
+/* Hide scrollbar but allow scrolling */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile dropdown animation */
+.mobile-dropdown-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.mobile-dropdown-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms, transform 200ms;
+}
+.mobile-dropdown-exit {
+  opacity: 1;
+}
+.mobile-dropdown-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 200ms, transform 200ms;
 }

@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default: "https://cdn-icons-png.flaticon.com/128/3177/3177440.png",
+      // default: "https://cdn-icons-png.flaticon.com/128/3177/3177440.png",
+      default: "https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg",
     },
     isAdmin: {
       type: Boolean,

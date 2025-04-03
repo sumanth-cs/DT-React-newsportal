@@ -36,7 +36,7 @@ const DashboardSidebar = () => {
       {/* Navigation Links */}
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
-          {currentUser && currentUser.isAdmin && (
+          {/* {currentUser && currentUser.isAdmin && (
             <li>
               <Link
                 to={"/dashboard?tab=dashboard"}
@@ -46,7 +46,7 @@ const DashboardSidebar = () => {
                 <span>Dashboard</span>
               </Link>
             </li>
-          )}
+          )} */}
 
           <li>
             <Link
