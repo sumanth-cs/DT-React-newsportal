@@ -17,7 +17,7 @@ import CreatePost from "./pages/CreatePost";
 import AdminPrivateRoute from "./components/shared/AdminPrivateRoute";
 import PostDetails from "./pages/PostDetails";
 import CategoryPage from "./pages/CategoryPage";
-// import EditPost from "./pages/EditPost";
+import EditPost from "./pages/EditPost";
 
 const App = () => {
   return (
@@ -37,7 +37,7 @@ const App = () => {
 
         <Route element={<AdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
-          {/* <Route path="/update-post/:postId" element={<EditPost />} /> */}
+          <Route path="/update-post/:postId" element={<EditPost />} />
         </Route>
 
         <Route path="/post/:postSlug" element={<PostDetails />} />

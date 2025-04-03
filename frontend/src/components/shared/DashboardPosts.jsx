@@ -33,19 +33,20 @@ const DashboardPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+        const res = await fetch(`/api/posts/?userId=${currentUser._id}`);
 
         const data = await res.json();
 
         if (res.ok) {
-          setUserPosts(data.posts);
+          setUserPosts(Array.isArray(data) ? data : []);
         }
 
-        if (data.posts.length < 9) {
+        if (Array.isArray(data) && data.length < 9) {
           setShowMore(false);
         }
       } catch (error) {
-        console.log(error);
+        console.log('Error fetching posts:', error);
+        setUserPosts([]);
       }
     };
 
