@@ -416,3 +416,16 @@ input[type="file"] {
   transform: translateY(-10px);
   transition: opacity 200ms, transform 200ms;
 }
+
+/* Smooth transitions for banner elements */
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}

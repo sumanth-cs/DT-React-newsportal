@@ -229,7 +229,7 @@ const Header = () => {
             </div>
 
             {/* Tablet Navigation (640px-767px) */}
-            <div className="hidden sm:flex md:hidden items-center gap-2">
+            <div className="hidden sm:flex md:hidden items-center gap-4">
               {/* Navigation Scroller */}
               <div className="flex items-center">
                 <button
@@ -333,7 +333,7 @@ const Header = () => {
             </div>
 
             {/* Mobile Menu Button (<640px) */}
-            <div className="sm:hidden flex items-center gap-2">
+            <div className="sm:hidden flex items-center gap-3">
               {currentUser && (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>

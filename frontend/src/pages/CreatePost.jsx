@@ -215,6 +215,9 @@ const CreatePost = () => {
             {imageUploading ? "Uploading..." : "Upload Image"}
           </Button>
         </div>
+        <span className="font-mono text-sm text-red-500">
+          * Recommended image size: 800 x 450, 1200 x 675 (16:9 aspect ratio)
+        </span>
 
         {imageUploadError && <p className="text-red-600">{imageUploadError}</p>}
 
