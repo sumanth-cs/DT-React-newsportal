@@ -18,6 +18,7 @@ import AdminPrivateRoute from "./components/shared/AdminPrivateRoute";
 import PostDetails from "./pages/PostDetails";
 import CategoryPage from "./pages/CategoryPage";
 import EditPost from "./pages/EditPost";
+import ScrollToTop from "./components/shared/ScrollToTop";
 
 const App = () => {
   return (
@@ -44,7 +45,8 @@ const App = () => {
 
         <Route path="/category/:slug" element={<CategoryPage />} />
       </Routes>
-
+      
+      <ScrollToTop />
       <Footer />
 
       <Toaster />
