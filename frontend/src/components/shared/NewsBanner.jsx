@@ -41,7 +41,7 @@
 //   return (
 //     <div className="relative w-full max-w-full h-[500px] overflow-hidden shadow-xl flex items-center justify-center ">
 //       {/* Banner Image */}
-//       <div 
+//       <div
 //         className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
 //         style={{
 //           backgroundImage: `url(${newsItems[currentIndex]?.image})`,
@@ -60,8 +60,8 @@
 //         <p className="text-lg mb-4 line-clamp-2 drop-shadow-lg">
 //           {newsItems[currentIndex]?.description}
 //         </p>
-//         <Button 
-//           variant="outline" 
+//         <Button
+//           variant="outline"
 //           className="w-fit bg-transparent text-white border-white hover:bg-blue hover:text-blue-500 transition duration-300"
 //           asChild
 //         >
@@ -74,14 +74,14 @@
 //       {/* Navigation Arrows */}
 //       {newsItems.length > 1 && (
 //         <>
-//           <button 
+//           <button
 //             onClick={goToPrev}
 //             className="absolute left-4 top-1/2 z-20 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition"
 //             aria-label="Previous news"
 //           >
 //             <ChevronLeft className="w-6 h-6 text-white" />
 //           </button>
-//           <button 
+//           <button
 //             onClick={goToNext}
 //             className="absolute right-4 top-1/2 z-20 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition"
 //             aria-label="Next news"
@@ -113,10 +113,10 @@
 
 // export default NewsBanner;
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const NewsBanner = ({ newsItems = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -126,7 +126,7 @@ const NewsBanner = ({ newsItems = [] }) => {
   useEffect(() => {
     if (newsItems.length > 1) {
       timerRef.current = setInterval(() => {
-        setCurrentIndex(prev => (prev + 1) % newsItems.length);
+        setCurrentIndex((prev) => (prev + 1) % newsItems.length);
       }, 3000); // Change every 5 seconds
 
       return () => clearInterval(timerRef.current);
@@ -134,19 +134,19 @@ const NewsBanner = ({ newsItems = [] }) => {
   }, [newsItems.length]);
 
   const goToNext = () => {
-    setCurrentIndex(prev => (prev + 1) % newsItems.length);
+    setCurrentIndex((prev) => (prev + 1) % newsItems.length);
     resetTimer();
   };
 
   const goToPrev = () => {
-    setCurrentIndex(prev => (prev - 1 + newsItems.length) % newsItems.length);
+    setCurrentIndex((prev) => (prev - 1 + newsItems.length) % newsItems.length);
     resetTimer();
   };
 
   const resetTimer = () => {
     clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setCurrentIndex(prev => (prev + 1) % newsItems.length);
+      setCurrentIndex((prev) => (prev + 1) % newsItems.length);
     }, 5000);
   };
 
@@ -155,15 +155,15 @@ const NewsBanner = ({ newsItems = [] }) => {
   return (
     <div className="relative w-full h-[500px] overflow-hidden shadow-xl">
       {/* Banner Image with object-cover for proper fitting */}
-      <div 
-        className="absolute inset-0 w-full h-full transition-opacity duration-1000"
-      >
+      <div className="absolute inset-0 w-full h-full transition-opacity duration-1000">
         <img
           src={newsItems[currentIndex]?.image}
           alt={newsItems[currentIndex]?.title}
           className="w-full h-full object-contain object-center"
           onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/1920x1080?text=Image+Not+Available';
+            // e.target.src = 'http://via.placeholder.com/1920x1080?text=Image+Not+Available';
+            e.target.src =
+              "https://euaa.europa.eu/sites/default/files/styles/width_600px/public/default_images/news-default-big.png?itok=NNXAZZTc";
           }}
         />
         {/* Gradient Overlay */}
@@ -178,28 +178,26 @@ const NewsBanner = ({ newsItems = [] }) => {
         <p className="text-lg md:text-xl mb-4 line-clamp-2 drop-shadow-lg max-w-2xl">
           {newsItems[currentIndex]?.description}
         </p>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           className="w-fit bg-transparent text-white border-white hover:bg-white hover:text-black transition duration-300"
           asChild
         >
-          <Link to={`/post/${newsItems[currentIndex]?.slug}`}>
-            Read More
-          </Link>
+          <Link to={`/post/${newsItems[currentIndex]?.slug}`}>Read More</Link>
         </Button>
       </div>
 
       {/* Navigation Arrows */}
       {newsItems.length > 1 && (
         <>
-          <button 
+          <button
             onClick={goToPrev}
             className="absolute left-4 top-1/2 z-20 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition backdrop-blur-sm"
             aria-label="Previous news"
           >
             <ChevronLeft className="w-6 h-6 text-white" />
           </button>
-          <button 
+          <button
             onClick={goToNext}
             className="absolute right-4 top-1/2 z-20 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition backdrop-blur-sm"
             aria-label="Next news"
@@ -219,7 +217,11 @@ const NewsBanner = ({ newsItems = [] }) => {
                 setCurrentIndex(index);
                 resetTimer();
               }}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${currentIndex === index ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/70'}`}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                currentIndex === index
+                  ? "bg-white w-8"
+                  : "bg-white/50 hover:bg-white/70"
+              }`}
               aria-label={`Go to news ${index + 1}`}
             />
           ))}

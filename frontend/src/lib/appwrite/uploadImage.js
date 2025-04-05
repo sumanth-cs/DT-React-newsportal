@@ -17,21 +17,35 @@ export async function uploadFile(file) {
 }
 
 // Get File Url
-export function getFilePreview(fileId) {
+// export function getFilePreview(fileId) {
+//     try {
+//         const fileUrl = storage.getFilePreview(
+//             appwriteConfig.storageId,
+//             fileId,
+//             2000,
+//             2000,
+//             ImageGravity.Top,
+//             100
+//         )
+
+//         if (!fileUrl) throw Error
+
+//         return fileUrl
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+export function getFileView(fileId) {
     try {
-        const fileUrl = storage.getFilePreview(
+        const fileUrl = storage.getFileView(
             appwriteConfig.storageId,
-            fileId,
-            2000,
-            2000,
-            ImageGravity.Top,
-            100
-        )
+            fileId
+        );
 
-        if (!fileUrl) throw Error
+        if (!fileUrl) throw new Error("Failed to generate file view URL");
 
-        return fileUrl
+        return fileUrl;
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }

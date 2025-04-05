@@ -60,15 +60,15 @@ const DashboardPosts = () => {
 
     try {
       const res = await fetch(
-        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `/api/posts/?userId=${currentUser._id}&startIndex=${startIndex}`
       );
 
       const data = await res.json();
 
       if (res.ok) {
-        setUserPosts((prev) => [...prev, ...data.posts]);
+        setUserPosts((prev) => [...prev, ...data]);
 
-        if (data.posts.length < 1) {
+        if (data.length < 1) {
           setShowMore(false);
         }
       }
@@ -82,7 +82,7 @@ const DashboardPosts = () => {
 
     try {
       const res = await fetch(
-        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        `/api/posts/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
         }

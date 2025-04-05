@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { getFilePreview, uploadFile } from "@/lib/appwrite/uploadImage";
+import { getFileView, uploadFile } from "@/lib/appwrite/uploadImage";
 import React, { useState, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -48,7 +48,7 @@ const CreatePost = () => {
       setImageUploadError(null);
 
       const uploadedFile = await uploadFile(file);
-      const postImageUrl = getFilePreview(uploadedFile.$id);
+      const postImageUrl = getFileView(uploadedFile.$id);
 
       setFormData({ ...formData, image: postImageUrl });
 
