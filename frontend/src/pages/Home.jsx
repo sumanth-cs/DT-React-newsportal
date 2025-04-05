@@ -6,6 +6,7 @@ import NewsBanner from "@/components/shared/NewsBanner";
 import HorizontalScroller from "@/components/shared/HorizontalScroller";
 import { useUser } from "@/context/userContext";
 import { FaFire } from "react-icons/fa";
+import NewsListSection from "@/components/shared/NewsListSection";
 
 const Home = () => {
   const { currentUser } = useUser();
@@ -155,6 +156,12 @@ const Home = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-6 bg-cream">
+        <div className="max-w-7xl mx-auto px-4">
+          <NewsListSection />
         </div>
       </section>
 
