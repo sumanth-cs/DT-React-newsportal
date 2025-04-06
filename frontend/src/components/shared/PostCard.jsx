@@ -160,7 +160,7 @@ const PostCard = ({ post }) => {
       </Link>
 
       {/* Content Section */}
-      <div className="p-5 flex flex-col gap-3">
+      <div className="p-5 flex flex-col gap-1">
         {/* Post Title */}
         <h2 className="text-xl font-bold text-gray-800 line-clamp-2 hover:text-blue-600 transition-colors duration-300">
           <Link to={`/post/${post.slug}`}>{post.title}</Link>
@@ -176,7 +176,7 @@ const PostCard = ({ post }) => {
             className="p-2 text-gray-500 hover:text-blue-600 transition-colors relative"
             aria-label="Share options"
           >
-            <Share2 className="w-4 h-4" />
+            <Share2 className="w-5 h-5" />
           </button>
         </div>
 

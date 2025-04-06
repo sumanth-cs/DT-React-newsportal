@@ -72,10 +72,18 @@ const Header = () => {
     }
   };
 
+  // useEffect(() => {
+  //   if (mobileMenuOpen) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "";
+  //   }
+  // }, [mobileMenuOpen]);
+
   return (
-    <header className="overflow-x-hidden">
+    <header className="overflow-x-hidden sticky top-0 z-50">
       {/* First Header: Email and Social Icons */}
-      <div className="bg-black/90 py-2 hidden sm:block">
+      <div className="bg-black/90 py-1 hidden sm:block">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div
@@ -136,12 +144,16 @@ const Header = () => {
       </div>
 
       {/* Second Header: Navigation Bar */}
-      <div className="bg-darkYellow shadow-lg sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <nav className="flex justify-between items-center py-2">
+      <div className="bg-darkYellow shadow-lg sticky top-0 z-50 w-full">
+        <div className="container mx-auto px-4 h-full">
+          <nav className="flex justify-between items-center h-18">
             {/* Logo */}
             <Link to={"/"} className="text-4xl font-bold shrink-0">
-              <img src={logo} alt="DharmTantra" className="w-25 h-25" />
+              <img
+                src={logo}
+                alt="DharmTantra"
+                className="w-20 h-18 md:w-25 md:h-25"
+              />
             </Link>
 
             {/* Desktop Navigation (≥768px) */}

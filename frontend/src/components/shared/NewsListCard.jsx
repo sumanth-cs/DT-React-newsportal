@@ -2,36 +2,11 @@ import React from "react";
 import { formatDistanceToNow } from "date-fns";
 import { Link } from "react-router-dom";
 
-// const NewsListCard = ({ post }) => {
-//   return (
-//     <Link
-//       to={`/post/${post.slug}`}
-//       className="flex flex-col sm:flex-row items-start gap-4 bg-white shadow-sm rounded-xl p-4 hover:bg-gray-50 transition"
-//     >
-//       <img
-//         src={post.image}
-//         alt={post.title}
-//         className="w-full sm:w-40 h-32 object-cover rounded-md"
-//       />
-//       <div className="flex-1">
-//         <h3 className="text-lg font-semibold text-black mb-1 line-clamp-2 hover:text-underline">
-//           {post.title}
-//         </h3>
-//         <p className="text-sm text-gray-600 line-clamp-3 mb-2">
-//           <div dangerouslySetInnerHTML={{ __html: post.content }}/>
-//         </p>
-//         <span className="text-xs text-gray-400">
-//           {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-//         </span>
-//       </div>
-//     </Link>
-//   );
-// };
 const NewsListCard = ({ post }) => {
   const { title, content, image, slug, createdAt } = post;
   return (
     <Link
-      to={`/posts/${slug}`}
+      to={`/post/${slug}`}
       className="flex w-full items-start gap-4 border-b p-4 rounded-lg bg-white hover:bg-gray-50 transition-all group"
     >
       <img
