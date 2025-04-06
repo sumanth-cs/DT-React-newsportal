@@ -112,7 +112,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Horizontal Scroller */}
+      {/* Horizontal Scroller Pick for you */}
       <section className="py-6 bg-cream">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-2 flex items-center align-middle gap-2">
@@ -148,7 +148,7 @@ const Home = () => {
                   </p>
                   <Link
                     to={`/post/${post.slug}`}
-                    className="mt-4 inline-block text-blue-600 hover:underline"
+                    className="mt-4 inline-block text-amber-600 hover:underline"
                   >
                     Read More
                   </Link>

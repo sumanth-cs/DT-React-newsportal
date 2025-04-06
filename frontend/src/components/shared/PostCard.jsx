@@ -162,7 +162,7 @@ const PostCard = ({ post }) => {
       {/* Content Section */}
       <div className="p-5 flex flex-col gap-1">
         {/* Post Title */}
-        <h2 className="text-xl font-bold text-gray-800 line-clamp-2 hover:text-blue-600 transition-colors duration-300">
+        <h2 className="text-xl font-bold text-gray-800 line-clamp-2 hover:text-amber-700 transition-colors duration-300">
           <Link to={`/post/${post.slug}`}>{post.title}</Link>
         </h2>
 

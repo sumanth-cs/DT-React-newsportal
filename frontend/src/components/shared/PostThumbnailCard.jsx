@@ -14,7 +14,7 @@ const PostThumbnailCard = ({ post }) => {
           className="w-full h-56 object-cover"
         />
         <div className="p-4">
-          <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-blue-700">{post.title}</h3>
+          <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-amber-700">{post.title}</h3>
         </div>
       </div>
     </Link>
