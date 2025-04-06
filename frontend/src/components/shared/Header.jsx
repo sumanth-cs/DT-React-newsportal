@@ -10,6 +10,7 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
+import { GiByzantinTemple } from "react-icons/gi";
 import { MdEmail } from "react-icons/md";
 import logo from "../../assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
@@ -100,6 +101,12 @@ const Header = () => {
               >
                 {email}
               </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Link to={"/nirvankand"}>
+                <GiByzantinTemple className="w-8 h-8 text-cream hover:text-amber-600 hover:scale-110 transition-all duration-300 ease-in-out" />
+              </Link>
             </div>
 
             <div className="flex space-x-4">

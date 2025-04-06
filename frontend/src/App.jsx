@@ -19,6 +19,7 @@ import PostDetails from "./pages/PostDetails";
 import CategoryPage from "./pages/CategoryPage";
 import EditPost from "./pages/EditPost";
 import ScrollToTop from "./components/shared/ScrollToTop";
+import NirvanKand from "./pages/NirvanKand";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/nirvankand" element={<NirvanKand />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
