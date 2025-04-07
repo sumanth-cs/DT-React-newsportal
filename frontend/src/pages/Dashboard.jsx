@@ -23,15 +23,15 @@ const Dashboard = () => {
   }, [location.search]);
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row w-full">
+    <div className="flex h-screen w-full overflow-hidden">
       {/* Sidebar */}
-      <div className="hidden md:block">
+      <div className="hidden md:block h-full">
         <DashboardSidebar />
       </div>
 
       <BottomNavBar />
 
-      <div className="w-full">
+      <div className="flex-1 overflow-y-auto p-6 ">
         {/* profile */}
         {tab === "profile" && <DashboardProfile />}
 

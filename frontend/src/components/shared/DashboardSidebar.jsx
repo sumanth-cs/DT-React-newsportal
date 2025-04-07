@@ -1,9 +1,11 @@
 import React from "react";
-import { FaComments, FaSignOutAlt, FaUserAlt, FaUsers } from "react-icons/fa";
+import { FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { IoIosCreate, IoIosDocument } from "react-icons/io";
-import { MdDashboardCustomize } from "react-icons/md";
+import { IoIosCreate } from "react-icons/io";
 import { useUser } from "@/context/userContext";
+import { GrArticle } from "react-icons/gr";
+import { BiCategory } from "react-icons/bi";
+import { CiEdit } from "react-icons/ci";
 
 const DashboardSidebar = () => {
   const { currentUser, signOut } = useUser();
@@ -27,14 +29,13 @@ const DashboardSidebar = () => {
   };
 
   return (
-    <aside className="h-screen w-64 bg-white/70 text-slate-800 flex flex-col items-left shadow-lg">
+    <aside className="w-64 h-screen bg-white/70 text-slate-800 flex flex-col shadow-lg">
       {/* Logo/ Header */}
       <div className="p-4 flex items-center justify-center ">
         <h1 className="text-2xl font-bold">Dashboard</h1>
       </div>
-
       {/* Navigation Links */}
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 p-4 flex flex-col">
         <ul className="space-y-2">
           {/* {currentUser && currentUser.isAdmin && (
             <li>
@@ -87,7 +88,7 @@ const DashboardSidebar = () => {
                 to={"/dashboard?tab=posts"}
                 className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
               >
-                <IoIosDocument className="text-lg" />
+                <GrArticle className="text-lg" />
                 <span>Your articles</span>
               </Link>
             </li>
@@ -98,7 +99,7 @@ const DashboardSidebar = () => {
                 to={"/dashboard?tab=manage-categories"}
                 className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
               >
-                <IoIosDocument className="text-lg" />
+                <BiCategory className="text-lg" />
                 <span>Manage Categories</span>
               </Link>
             </li>
@@ -109,7 +110,7 @@ const DashboardSidebar = () => {
                 to={"/dashboard?tab=nirvankand"}
                 className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
               >
-                <IoIosDocument className="text-lg" />
+                <CiEdit className="text-lg" />
                 <span>Edit Nirvan Kand</span>
               </Link>
             </li>
