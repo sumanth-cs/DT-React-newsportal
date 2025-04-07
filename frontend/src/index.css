@@ -385,7 +385,7 @@ input[type="file"] {
   opacity: 1 !important;
   pointer-events: all !important;
   position: relative;
-  z-index: 9999 !important;
+  /* z-index: 9999 !important; */
 }
 
 /* Hide scrollbar but allow scrolling */

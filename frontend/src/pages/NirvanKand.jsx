@@ -1,80 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const NirvanKand = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/nirvankand");
+        const data = await res.json();
+        if (res.ok) {
+          setData(data);
+        } else {
+          console.error("Error fetching data:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error); 
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (!data) return <p className="text-center mt-10 text-gray-600">Loading...</p>;
+
   return (
-    <div
-      style={{
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#f4f4f4",
-        padding: "20px",
-      }}
-    >
-      <header
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          backgroundColor: "#470408d3",
-          color: "white",
-        }}
-      >
-        <h1>निर्वाण कांड - जिनवाणी संग्रह (Nirvan Kand - Jinvani)</h1>
+    <div className="font-sans bg-gray-100 min-h-screen p-4">
+      <header className="bg-[#470408d3] text-white p-6 rounded-lg shadow-md">
+        <h1 className="text-3xl font-bold">{data.title}</h1>
+        <h3 className="text-lg mt-2">{data.subtitle}</h3>
       </header>
 
       <main>
-        <article
-          className="post"
-          style={{
-            maxWidth: "600px",
-            margin: "10px auto",
-            padding: "25px",
-            backgroundColor: "white",
-            borderRadius: "8px",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <h2 style={{ color: "#470408d3", fontSize:"30px", fontWeight:"bold" }}>निर्वाण कांड</h2>
-          <p>
-            निर्वाण कांड एक प्राचीन प्राकृत जैन रचना है जिसमें उन पवित्र स्थलों
-            का वर्णन है जहाँ जैन मुनियों ने निर्वाण प्राप्त किया है। इसे निर्वाण
-            भक्ति भी कहा जाता है।
-          </p>
-          <br />
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {[
-              "अष्टापद आदीश्वर स्वामी, वासु पूज्य चम्पापुरि नामि।<br>नेमिनाथ स्वामी गिरनार, बन्दौं भाव भगति उरधार ॥(1)",
-              "चरम तीर्थंकर चरम शरीर, पावापुरि स्वामी महावीर।<br>शिखर समेद जिनेसुर बीस, भाव सहित बन्दौं निशदीस ॥(2)",
-              "वरदतराय रू इंद्र मुनिंद, सायरदत्त आदिगुणवृंद।<br>नगरतारवर मुनि उठकोडि, बन्दौं भाव सहित करजोड़ि ॥(3)",
-              "श्री गिरनार शिखर विख्यात, कोडि बहत्तर अरू सौ सात।<br>शम्भु प्रद्युम्न कुमार द्वै भाय, अनिरुद्ध आदि नमूं तसु पाय ॥(4)",
-              "रामचंद के सुत द्वै वीर, लाडनरिंद आदि गुण धीर।<br>पाँचकोड़ि मुनि मुक्ति मंझार, पावागिरि बंदौ निरधार ॥(5)",
-              "पाण्डव तीन द्रविड़ राजान आठकोड़ि मुनि मुकति पयान।<br>श्री शत्रुंजय गिरि के सीस, भाव सहित बन्दौं निशदीस ॥(6)",
-              "जे बलभद्र मुकति में गये, आठकोड़ि मुनि औरहु भये।<br>श्री गजपंथ शिखर सुविशाल, तिनके चरण नमूं तिहूँ काल ॥(7)",
-              "राम हणू सुग्रीव सुडील, गवगवाख्य नीलमहानील।<br>कोड़ि निण्यान्वे मुक्ति पयान, तुंगीगिरी वंदौ धरिध्यान ॥(8)",
-              "नंग अनंग कुमार सुजान, पाँच कोड़ि अरू अर्द्ध प्रमाण।<br>मुक्ति गए सोनागिरि शीश, ते बन्दौं त्रिभुवनपति ईस ॥(9)",
-              "रावण के सुत आदिकुमार, मुक्ति गए रेवातट सार।<br>कोटि पंच अरू लाख पचास ते बन्दौं धरि परम हुलास ॥(10)",
-              "रेवा नदी सिद्धवरकूट, पश्चिम दिशा देह जहँ छूट।<br>द्वै चक्री दश कामकुमार, ऊठकोड़ि बन्दौं भवपार ॥(11)",
-              "बड़वानी बड़नगर सुचंग, दक्षिण दिशि गिरिचूल उतंग।<br>इंद्रजीत अरू कुंभ जु कर्ण, ते बन्दौं भवसागर तर्ण ॥(12)",
-              "सुवरण भद्र आदि मुनि चार, पावागिरिवर शिखर मंझार।<br>चेलना नदी तीर के पास, मुक्ति गए बंदौं नित तास। ॥(13)",
-              "फलहोड़ी बड़ग्राम अनूप, पश्चिम दिशा द्रोणगिर रूप।<br>गुरु दत्तादि मुनीश्वर जहाँ, मुक्ति गए बंदौं नित तहाँ ॥(14)",
-              "बालि- महाबालि मुनि दोय, नागकुमार मिले त्रय होय।<br>श्री अष्टापद मुक्ति मंझार, ते बंदौं नितसुरत संभार ॥(15)",
-              "अचलापुर की दिश ईसान, तहाँ मेंढ़गिरि नाम प्रधान।<br>साढ़े तीन कोड़ि मुनिराय, तिनके चरण नमूँ चितलाय ॥(16)",
-              "वंशस्थल वन के ढिग होय, पश्चिम दिशा कुन्थुगिरि सोय।<br>कुलभूषण देशभूषण नाम, तिनके चरणनि करूँ प्रणाम ॥(17)",
-              "जसरथराजा के सुत कहे, देश कलिंग पाँच सौ लहे।<br>कोटिशिला मुनिकोटि प्रमान, वंदन करूँ जोरि जुगपान ॥(18)",
-              "समवसरण श्री पार्श्व जिनंद, रेसंदीगिरि नयनानंद।<br>वरदत्तादि पंच ऋषिराज, ते बन्दौं नित धरम जिहाज ॥(19)",
-              "मथुरापुर पवित्र उद्यान, जम्बूस्वामीजी निर्वाण।<br>चरम केवलि पंचमकाल, ते बन्दौं नित दीनदयाल ॥(20)",
-              "तीन लोक के तीरथ जहाँ, नित प्रति वंदन कीजै तहाँ।<br>मन वच काय सहित सिरनाय, वंदन करहिं भविक गुणगाय ॥(21)",
-              "संवत्‌ सतरह सौ इकताल, आश्विन सुदी दशमी सुविशाल।<br>'भैया' वंदन करहिं त्रिकाल, जय निर्वाण कांड गुणमाल ॥(22)"
-            ].map((line, index) => (
+        <article className="max-w-2xl mx-auto mt-6 p-6 bg-white rounded-lg shadow-md">
+          <ul className="space-y-4">
+            {data.shlokas.map((line, index) => (
               <React.Fragment key={index}>
                 <li
-                  style={{
-                    marginBottom: "10px",
-                    paddingBottom: "10px",
-                    color: "#333",
-                    fontWeight: "bold",
-                  }}
+                  className="text-gray-800 font-semibold text-lg"
                   dangerouslySetInnerHTML={{ __html: line }}
                 />
-                {index < 21 && <hr style={{ borderTop: "1px solid #ddd" }} />}
+                {index < data.shlokas.length - 1 && <hr className="border-t border-gray-200" />}
               </React.Fragment>
             ))}
           </ul>

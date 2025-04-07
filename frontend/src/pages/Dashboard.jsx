@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import CreatePost from "./CreatePost";
 import DashboardPosts from "@/components/shared/DashboardPosts";
 import CategoryManager from "@/components/shared/CategoryManager";
+import NirvanKandEdit from "@/components/shared/NirvanKandEdit";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -41,9 +42,10 @@ const Dashboard = () => {
         {tab === "posts" && <DashboardPosts />}
 
         {/* manage cateogories */}
-        {tab==="manage-categories" && <CategoryManager/>}
+        {tab === "manage-categories" && <CategoryManager />}
 
-
+        {/* Nirvan Kand */}
+        {tab === "nirvankand" && <NirvanKandEdit />}
       </div>
     </div>
   );

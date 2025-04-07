@@ -103,6 +103,17 @@ const DashboardSidebar = () => {
               </Link>
             </li>
           )}
+          {currentUser && currentUser.isAdmin && (
+            <li>
+              <Link
+                to={"/dashboard?tab=nirvankand"}
+                className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
+              >
+                <IoIosDocument className="text-lg" />
+                <span>Edit Nirvan Kand</span>
+              </Link>
+            </li>
+          )}
         </ul>
 
         <div className="p-4 border-t border-gray-700">

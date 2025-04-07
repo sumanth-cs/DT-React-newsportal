@@ -39,7 +39,7 @@ const BottomNavBar = () => {
 
       {currentUser && currentUser.isAdmin && (
         <Link
-          to="/create-post"
+          to="/dashboard?tab=create-post"
           className="flex flex-col items-center text-slate-800"
         >
           <IoIosCreate size={20} />

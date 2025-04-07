@@ -8,6 +8,7 @@ import authRoutes from "./routes/auth.route.js"
 import userRoutes from "./routes/user.route.js"
 import postRoutes from "./routes/post.route.js"
 import categoryRoutes from "./routes/category.route.js";
+import nirvanKandRoutes from "./routes/nirvanKand.route.js";
 
 dotenv.config()
 
@@ -36,7 +37,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/user", userRoutes)
 app.use("/api/posts", postRoutes)
 app.use('/api/categories', categoryRoutes);
-
+app.use("/api/nirvankand", nirvanKandRoutes)
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500
 
