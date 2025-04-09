@@ -6,6 +6,8 @@ import { useUser } from "@/context/userContext";
 import { GrArticle } from "react-icons/gr";
 import { BiCategory } from "react-icons/bi";
 import { CiEdit } from "react-icons/ci";
+import { MdOutlinePermMedia } from "react-icons/md";
+import { MdOutlinePostAdd } from "react-icons/md";
 
 const DashboardSidebar = () => {
   const { currentUser, signOut } = useUser();
@@ -76,7 +78,7 @@ const DashboardSidebar = () => {
                 to={"/dashboard?tab=create-post"}
                 className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
               >
-                <IoIosCreate className="text-lg" />
+                <MdOutlinePostAdd className="text-lg" />
                 <span>Create Post</span>
               </Link>
             </li>
@@ -112,6 +114,17 @@ const DashboardSidebar = () => {
               >
                 <CiEdit className="text-lg" />
                 <span>Edit Nirvan Kand</span>
+              </Link>
+            </li>
+          )}
+          {currentUser && currentUser.isAdmin && (
+            <li>
+              <Link
+                to={"/dashboard?tab=multimedia"}
+                className="flex align-bottom gap-3 p-2 hover:bg-amber-100 rounded"
+              >
+                <MdOutlinePermMedia className="text-lg" />
+                <span>Edit Multi-Media</span>
               </Link>
             </li>
           )}

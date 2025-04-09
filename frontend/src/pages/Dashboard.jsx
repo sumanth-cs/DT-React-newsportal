@@ -8,6 +8,7 @@ import CreatePost from "./CreatePost";
 import DashboardPosts from "@/components/shared/DashboardPosts";
 import CategoryManager from "@/components/shared/CategoryManager";
 import NirvanKandEdit from "@/components/shared/NirvanKandEdit";
+import AddMediaForm from "@/components/shared/AddMediaForm";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -46,6 +47,9 @@ const Dashboard = () => {
 
         {/* Nirvan Kand */}
         {tab === "nirvankand" && <NirvanKandEdit />}
+
+        {/* Multi Media */}
+        {tab === "multimedia" && <AddMediaForm />}
       </div>
     </div>
   );

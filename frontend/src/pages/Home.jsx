@@ -7,6 +7,7 @@ import HorizontalScroller from "@/components/shared/HorizontalScroller";
 import { useUser } from "@/context/userContext";
 import { FaFire } from "react-icons/fa";
 import NewsListSection from "@/components/shared/NewsListSection";
+import MultimediaSection from "@/components/shared/MultimediaSection";
 
 const Home = () => {
   const { currentUser } = useUser();
@@ -190,14 +191,14 @@ const Home = () => {
       </section>
 
       {/* Multimedia Section */}
-      <section className="py-16 bg-cream">
+      {/* <section className="py-16 bg-cream">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
             <Video className="w-8 h-8" /> Multimedia
-          </h2>
+          </h2> */}
 
-          {/* YouTube Videos */}
-          <div className="mb-16">
+      {/* YouTube Videos */}
+      {/* <div className="mb-16">
             <h3 className="text-2xl font-semibold text-gray-700 mb-4">
               YouTube Videos
             </h3>
@@ -224,10 +225,10 @@ const Home = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
-          {/* Reels Section */}
-          <div>
+      {/* Reels Section */}
+      {/* <div>
             <h3 className="text-2xl font-semibold text-gray-700 mb-4">Reels</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {[1, 2, 3, 4].map((_, i) => (
@@ -259,6 +260,12 @@ const Home = () => {
               ))}
             </div>
           </div>
+        </div>
+      </section> */}
+      {/* Multimedia Section */}
+      <section className="py-16 bg-cream">
+        <div className="max-w-7xl mx-auto px-4">
+          <MultimediaSection />
         </div>
       </section>
     </div>

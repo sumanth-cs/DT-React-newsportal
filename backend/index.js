@@ -9,6 +9,7 @@ import userRoutes from "./routes/user.route.js"
 import postRoutes from "./routes/post.route.js"
 import categoryRoutes from "./routes/category.route.js";
 import nirvanKandRoutes from "./routes/nirvanKand.route.js";
+import multimediaRoutes from "./routes/multimedia.route.js";
 
 dotenv.config()
 
@@ -37,7 +38,9 @@ app.use("/api/auth", authRoutes)
 app.use("/api/user", userRoutes)
 app.use("/api/posts", postRoutes)
 app.use('/api/categories', categoryRoutes);
-app.use("/api/nirvankand", nirvanKandRoutes)
+app.use("/api/nirvankand", nirvanKandRoutes);
+app.use("/api/multimedia", multimediaRoutes);
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500
 
