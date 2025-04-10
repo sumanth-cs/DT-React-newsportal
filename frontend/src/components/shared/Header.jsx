@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import { GiByzantinTemple } from "react-icons/gi";
 import { MdEmail } from "react-icons/md";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo1.png";
 import { Link, useLocation } from "react-router-dom";
 import { useUser } from "@/context/UserContext";
 import { Button } from "../ui/button";
@@ -155,11 +155,11 @@ const Header = () => {
         <div className="container mx-auto px-4 h-full">
           <nav className="flex justify-between items-center h-18">
             {/* Logo */}
-            <Link to={"/"} className="text-4xl font-bold shrink-0">
+            <Link to={"/"} className="text-2xl font-bold shrink-0">
               <img
                 src={logo}
                 alt="DharmTantra"
-                className="w-20 h-18 md:w-25 md:h-25"
+                className="w-18 h-16 md:w-20 md:h-20"
               />
             </Link>
 
